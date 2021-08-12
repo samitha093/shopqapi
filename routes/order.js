@@ -26,7 +26,7 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/seller/:id').get((req, res) => {
-    Order.find({seller:req.params.id},(error,data)=>{
+    Order.find({store:req.params.id},(error,data)=>{
       if(data.length > 0){
         res.json({store:data[0]});
       }else{
