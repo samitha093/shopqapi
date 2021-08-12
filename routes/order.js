@@ -28,7 +28,7 @@ router.route('/add').post((req, res) => {
 router.route('/seller/:id').get((req, res) => {
     Order.find({store:req.params.id},(error,data)=>{
       if(data.length > 0){
-        res.json({store:data[0]});
+        res.json({orders:data});
       }else{
         res.status(400).json("No User");
       }
@@ -37,7 +37,7 @@ router.route('/seller/:id').get((req, res) => {
   router.route('/user/:id').get((req, res) => {
     Order.find({buyer:req.params.id},(error,data)=>{
       if(data.length > 0){
-        res.json({store:data[0]});
+        res.json({orders:data});
       }else{
         res.status(400).json("No User");
       }
