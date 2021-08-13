@@ -42,5 +42,25 @@ router.route('/login').post((req, res) => {
   })
 });
 
+router.route('/update/:id').post((req, res) => {
+  User.find({username:req.params.id},(error,data)=>{
+    if(data.length > 0){
+      //res.json({username:data[0].id});
+      User.findById(data[0].id)
+      .then(exercise => {
+        exercise.username = req.body.username;
+        exercise.password = req.body.password;
+        exercise.save()
+          .then(() => res.json('Exercise updated!'))
+          .catch(err => res.status(400).json('Error : ' + err));
+      })
+      .catch(err => res.status(400).json('Error : ' + err));
+    }else{
+      res.status(400).json('Error 112')
+    }
+  })
+ 
+});
+
 
 module.exports = router;

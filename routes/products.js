@@ -2,7 +2,7 @@ const router = require('express').Router();
 let Product = require('../models/product.model');
 
 router.route('/').get((req, res) => {
-    Product.find()
+    Product.find({status:"Active"})
     .then(exercises => res.json(exercises))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -13,8 +13,15 @@ router.route('/:id').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
-router.route('/store/:id').get((req, res) => {
+  router.route('/store/:id').get((req, res) => {
     Product.find({store:req.params.id})
+      .then(exercise => res.json(exercise))
+      .catch(err => res.status(400).json('Error: ' + err));
+
+});
+
+router.route('/store/v/:id').get((req, res) => {
+    Product.find({store:req.params.id , status:"Active"})
       .then(exercise => res.json(exercise))
       .catch(err => res.status(400).json('Error: ' + err));
 
